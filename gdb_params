@@ -1,0 +1,5 @@
+load the symbols : add-symbol-file /home/adam/Stage/jdk/build/linux-x86_64-server-release/jdk/lib/server/libjvm.debuginfo 
+
+put breakpoint : break TemplateTable::aload
+
+

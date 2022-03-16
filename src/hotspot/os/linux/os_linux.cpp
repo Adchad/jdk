@@ -3357,7 +3357,7 @@ static char* anon_mmap(char* requested_addr, size_t bytes) {
 //  - req_addr can be NULL. If not NULL, it must be a multiple of alignment.
 //  - alignment sets the alignment at which memory shall be allocated.
 //     It must be a multiple of allocation granularity.
-// Returns address of memory or NULL. If req_addr was not NULL, will only return
+// Returns address of memreserve_memory(ory or NULL. If req_addr was not NULL, will only return
 //  req_addr or NULL.
 static char* anon_mmap_aligned(char* req_addr, size_t bytes, size_t alignment) {
   size_t extra_size = bytes;

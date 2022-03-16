@@ -44,6 +44,10 @@
 #include "runtime/synchronizer.hpp"
 #include "utilities/macros.hpp"
 
+#include <iostream>
+#include <fstream>
+
+
 #define __ Disassembler::hook<InterpreterMacroAssembler>(__FILE__, __LINE__, _masm)->
 
 // Global Register Names
@@ -695,10 +699,21 @@ void TemplateTable::dload() {
   __ load_double(daddress(rbx));
 }
 
+
+address TemplateTable::relink(){
+    address entry = __ pc();
+    __ warn("Je suis entré dans relink !");
+    //__ jump(RuntimeAddress(go_back));
+    return entry;
+}
+
 void TemplateTable::aload() {
   transition(vtos, atos);
   locals_index(rbx);
   __ movptr(rax, aaddress(rbx));
+  //__ cmpptr(rax, 0); // on regarde si rax est inferieur à zero
+  //address go_back = __ pc() + 8;
+  //__ jump_cc(Assembler::belowEqual, RuntimeAddress(TemplateTable::relink()));
 }
 
 void TemplateTable::locals_index_wide(Register reg) {
@@ -820,13 +835,17 @@ void TemplateTable::aaload() {
   transition(itos, atos);
   // rax: index
   // rdx: array
-  index_check(rdx, rax); // kills rbx
-  do_oop_load(_masm,
+    //if(aaddress(rax)<0) relink();
+    //if(true) relink();
+    index_check(rdx, rax); // kills rbx
+
+    do_oop_load(_masm,
               Address(rdx, rax,
                       UseCompressedOops ? Address::times_4 : Address::times_ptr,
                       arrayOopDesc::base_offset_in_bytes(T_OBJECT)),
               rax,
               IS_ARRAY);
+
 }
 
 void TemplateTable::baload() {
@@ -898,7 +917,9 @@ void TemplateTable::dload(int n) {
 
 void TemplateTable::aload(int n) {
   transition(vtos, atos);
-  __ movptr(rax, aaddress(n));
+   // if (true) relink();
+    //if(rbx->encoding()<0) relink();
+    __ movptr(rax, aaddress(n));
 }
 
 void TemplateTable::aload_0() {

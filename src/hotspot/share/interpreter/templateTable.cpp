@@ -60,6 +60,7 @@ void Template::generate(InterpreterMacroAssembler* masm) {
   TemplateTable::_masm = masm;
   // code generation
   _gen(_arg);
+  // Ici, _gen c'est le template de la methode, par exemple, TemplateTable::aload()
   masm->flush();
 }
 

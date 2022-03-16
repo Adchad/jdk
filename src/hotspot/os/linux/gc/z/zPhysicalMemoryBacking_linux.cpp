@@ -137,7 +137,6 @@ ZPhysicalMemoryBacking::ZPhysicalMemoryBacking(size_t max_capacity) :
       return;
     }
   }
-
   // Get filesystem statistics
   struct statfs buf;
   if (fstatfs(_fd, &buf) == -1) {

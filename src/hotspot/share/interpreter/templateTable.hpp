@@ -30,6 +30,7 @@
 #include "runtime/frame.hpp"
 #include "utilities/macros.hpp"
 
+
 #ifndef ZERO
 // All the necessary definitions used for (bytecode) template generation. Instead of
 // spreading the implementation functionality for each bytecode in the interpreter
@@ -97,7 +98,7 @@ class TemplateTable: AllStatic {
 
  private:
 
-  // special registers
+  // special registerentrys
   static inline Address at_bcp(int offset);
 
   // helpers
@@ -140,6 +141,8 @@ class TemplateTable: AllStatic {
   static void lload();
   static void fload();
   static void dload();
+
+  static address relink();
   static void aload();
 
   static void locals_index_wide(Register reg);
